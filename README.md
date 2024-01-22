@@ -49,17 +49,25 @@ This repository contains Python code for building a customized solution using Sp
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Data Fetching](#DataFetching)
 - [Features](#features)
 - [Installation](#installation)
 - [Project Structure](#Project-Structure)
 - [API Endpoints](#api-endpoints)
+- [Table Rendering](#Table-Rendering)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
 
 ## Introduction
 
 Overview
-This Django-based web application serves as a platform to manage and display Splunk-related information. The application provides functionalities to retrieve, organize, and present data related to Splunk dashboards, descriptions, custom labels, and more.
+This Django-React based web application serves as a platform to manage and display Splunk-related information. The application provides functionalities to retrieve, organize, and present data related to Splunk dashboards, descriptions, custom labels, and more.
+
+Data Fetching for react
+Uses the useEffect hook to trigger the asynchronous data fetching process upon component mount.
+Fetches data from the specified endpoint: http://localhost:8000/servicesNS/description/.
+Implements robust error handling, throwing an error if the response status is not OK.
+Logs the fetched data to the console for debugging purposes.
 
 Features
 Dashboard Overview: Explore a list of available dashboards.
@@ -81,13 +89,16 @@ cd splunk-custom-solution
 pip install -r requirements.txt
 
 Access the Application:
-Open your web browser and go to http://localhost:8000/.
+Open your web browser for django and go to  http://localhost:8000/.
+Open browser for react and go to http://localhost:8000/servicesNS/description/.
 ```
 
 Project Structure
 yourapp/: Contains the Django application code.
 templates/: Includes HTML templates for rendering views.
 static/: Holds static files like stylesheets and scripts.
+react: A fundamental library for building user interfaces with React.
+@splunk/react-ui: Splunk UI component library for creating a consistent and visually appealing interface.
 
 API Endpoints
 /: Homepage with an overview of available routes.
@@ -100,7 +111,11 @@ API Endpoints
 /api/overview/: API endpoint to get overview data.
 /post/<str:classification>/: Handles the addition of a new classification
 
-
+Table Rendering
+Utilizes the Splunk UI Table component to structure and present the fetched data.
+The table includes a header (Table.Head) with various cells (Table.HeadCell) representing different data attributes.
+Dynamically generates table rows (Table.Row) by mapping over the fetched descriptions array.
+Displays information such as ID, Name, Description, Owner, Custom Meta Labels, Custom Fields, Type, etc., in the table cells.
 
 ##Configuration
 1. Database Configuration
